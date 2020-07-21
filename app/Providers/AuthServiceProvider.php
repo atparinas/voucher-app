@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Admin;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +26,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('admin-only', function($user){
+            //return $user->tokenCan('admin');
+            return $user instanceof Admin;
+        });
+
     }
 }
