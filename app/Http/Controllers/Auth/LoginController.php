@@ -6,18 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
 
     use AuthenticatesUsers;
 
@@ -35,6 +26,34 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+//        $this->middleware('guest')->except('logout');
+//        $this->middleware('guest:admin')->except('logout');
+//        $this->middleware('guest:users')->except('logout');
     }
+
+
+    public function showUserLogin()
+    {
+        return view('auth.login', ['url' => 'users']);
+    }
+
+
+    public function showAdminLogin()
+    {
+        return view('auth.login', ['url' => 'admins']);
+    }
+
+    public function adminLogin()
+    {
+        return view('admin.admin_home');
+    }
+
+
+    public function userLogin()
+    {
+        return view('user.user_home');
+    }
+
+
+
 }
