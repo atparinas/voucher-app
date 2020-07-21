@@ -4,4 +4,11 @@
 
     <h1>You are now inside the Admin Users Area</h1>
 
+    <div>
+        <p>
+           User: {{ Auth::user() }}
+        </p>
+
+    </div>
+
 @endsection

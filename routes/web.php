@@ -27,5 +27,7 @@ Route::get('login/users', 'Auth\LoginController@showUserLogin')->name('show.user
 Route::post('login/users', 'Auth\LoginController@userLogin')->name('show.user.login');
 
 
+Route::get('/admins', 'Admin\AdminController@index');
+Route::get('/users', 'User\UserController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');

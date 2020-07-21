@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class LoginController extends Controller
@@ -26,9 +28,9 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('guest')->except('logout');
-//        $this->middleware('guest:admin')->except('logout');
-//        $this->middleware('guest:users')->except('logout');
+        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:users')->except('logout');
     }
 
 
@@ -43,15 +45,35 @@ class LoginController extends Controller
         return view('auth.login', ['url' => 'admins']);
     }
 
-    public function adminLogin()
+    public function adminLogin(Request $request)
     {
-        return view('admin.admin_home');
+
+        $loginData = $this->validate($request, [
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
+        if(Auth::guard('admin')->attempt($loginData) ){
+            return redirect()->intended('/admins');
+        }
+
+
+        return redirect()->intended('login/admins');
     }
 
 
-    public function userLogin()
+    public function userLogin(Request $request)
     {
-        return view('user.user_home');
+        $loginData = $this->validate($request, [
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
+        if(Auth::guard('users')->attempt($loginData) ){
+            return redirect()->intended('/users');
+        }
+
+        return redirect()->intended('login/users');
     }
 
 
