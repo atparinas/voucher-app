@@ -21,6 +21,7 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+
     /**
      * Create a new controller instance.
      *
@@ -56,9 +57,9 @@ class LoginController extends Controller
         if(Auth::guard('admin')->attempt($loginData) ){
             return redirect()->intended('/admins');
         }
+        return $this->sendFailedLoginResponse($request);
 
 
-        return redirect()->intended('login/admins');
     }
 
 
@@ -73,9 +74,13 @@ class LoginController extends Controller
             return redirect()->intended('/users');
         }
 
-        return redirect()->intended('login/users');
+        return $this->sendFailedLoginResponse($request);
     }
 
 
+    public function username()
+    {
+        return 'username';
+    }
 
 }

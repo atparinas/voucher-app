@@ -14,7 +14,7 @@ class TestController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum');
-        Gate::authorize('admin-only');
+//        Gate::authorize('admin-only');
     }
 
     /**
@@ -24,6 +24,8 @@ class TestController extends Controller
      */
     public function index()
     {
+        Gate::authorize('admin-only');
+
         return response()->json([
             'data' => 'Test Data'
         ]);
