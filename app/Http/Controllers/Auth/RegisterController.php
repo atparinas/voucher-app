@@ -80,5 +80,11 @@ class RegisterController extends Controller
         return Auth::guard('users');
     }
 
+    protected function registered(Request $request, $user)
+    {
+        // todo Create the Voucher
+
+        // todo send email notification welcome message with voucher
+    }
 
 }
