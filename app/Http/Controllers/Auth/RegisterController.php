@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Services\Interfaces\VoucherService;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -38,9 +39,13 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    protected $voucherService;
+
+    public function __construct(VoucherService $voucherService)
     {
         $this->middleware('guest');
+        $this->voucherService = $voucherService;
     }
 
     /**
@@ -82,7 +87,9 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
-        // todo Create the Voucher
+        $this->voucherService->createVoucher($user);
+
+        return redirect('/users');
 
         // todo send email notification welcome message with voucher
     }
