@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('test', 'API\TestController@index');
+
+Route::resource('users.vouchers', 'API\User\UserVoucherController', ['only' => ['index', 'store', 'destroy']]);
