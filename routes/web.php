@@ -26,10 +26,10 @@ Route::post('/login/admins',  'Auth\LoginController@adminLogin')->name('admin.lo
 Route::get('login/users', 'Auth\LoginController@showUserLogin')->name('show.user.login');
 Route::post('login/users', 'Auth\LoginController@userLogin')->name('show.user.login');
 
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('show.register');
+Route::post('register', 'Auth\RegisterController@register')->name('register');
 
-Route::post('register', 'Auth\RegisterController@register');
-
-Route::post('logout', 'Auth\LoginController@logout')->name('logout')->name('register');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 Route::get('/admins', 'Admin\AdminController@index');

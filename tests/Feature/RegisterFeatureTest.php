@@ -19,7 +19,7 @@ class RegisterFeatureTest extends TestCase
         $userData = [
             'username' => 'atparinas',
             'name' => 'Andy Parinas',
-            'email' => 'atparinas@gmail.com',
+            'email' => 'andy.parinas@gmail.com',
             'password' => 'password',
             'password_confirmation' => 'password'
         ];
