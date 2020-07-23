@@ -18,10 +18,9 @@ class UserVoucherController extends Controller
      */
     public function index(Request $request, $userId)
     {
+        //todo Secure the API
 
         $vouchers = Voucher::where('user_id', $userId)
-                        ->latest()
-                        ->first()
                         ->paginate(5);
 
 

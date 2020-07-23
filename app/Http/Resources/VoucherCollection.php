@@ -27,9 +27,15 @@ class VoucherCollection extends ResourceCollection
             'pagination' => [
                 'total' => $this->total(),
                 'count' => $this->count(),
-                'per_page' => $this->perPage(),
-                'current_page' => $this->currentPage(),
-                'total_pages' => $this->lastPage()
+                'perPage' => $this->perPage(),
+                'currentPage' => $this->currentPage(),
+                'totalPages' => $this->lastPage(),
+                'firstItem' => $this->firstItem(),
+                'lastItem' => $this->lastItem(),
+                'hasMorePages' => $this->hasMorePages(),
+                'lastPage' => $this->lastPage(),
+                'nextPageUrl' => $this->nextPageUrl(),
+                'previousPageUrl' => $this->previousPageUrl(),
             ]
         ];
     }

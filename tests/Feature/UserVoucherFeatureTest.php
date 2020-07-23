@@ -16,6 +16,8 @@ class UserVoucherFeatureTest extends TestCase
     public function testCanListUsersVouchers()
     {
 
+        $this->withoutExceptionHandling();
+
         $user = factory(User::class)->create();
 
         factory(Voucher::class, 15)->create([
@@ -23,9 +25,9 @@ class UserVoucherFeatureTest extends TestCase
         ]);
 
 
-        $response = $this->get('api/users/' . $user->id . '/vouchers/');
+        $response = $this->get('api/users/' . $user->id . '/vouchers/?page=2');
 
-        //dd(json_decode($response->content()));
+        dd(json_decode($response->content()));
 
         $response->assertStatus(200)
             ->assertJsonCount(5, 'data');

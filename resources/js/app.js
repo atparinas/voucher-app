@@ -19,6 +19,17 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+
+//Global Mixins for the Backend URL
+Vue.mixin({
+    data: function() {
+        return {
+            backendUrl:'http://homestead.test'
+        }
+    }
+})
+
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('user-dashboard', require('./components/users/UserDashboard.vue').default);
 
