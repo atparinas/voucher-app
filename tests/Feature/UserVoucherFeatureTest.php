@@ -36,4 +36,19 @@ class UserVoucherFeatureTest extends TestCase
 
     }
 
+    public function testCanCreateVoucers()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+
+        Sanctum::actingAs($user, ['*']);
+
+        $response = $this->post('api/users/' . $user->id . '/vouchers/');
+
+        //dd(json_decode($response->content()));
+
+        $response->assertStatus(201);
+    }
+
 }

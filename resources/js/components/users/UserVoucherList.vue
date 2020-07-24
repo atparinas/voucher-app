@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header">
-            <UserVoucherControl :totalVoucher="totalVoucher" :loading="loading" />
+            <UserVoucherControl :totalVoucher="totalVoucher" :loading="loading" :user-id="userId" />
         </div>
         <div style="height: 10px">
             <div class="progress" v-if="loading || paginating">
@@ -30,6 +30,7 @@
     import UserVouchersTable from  "./UserVouchersTable"
     import UserVoucherControl from "./UserVoucherControl";
     import api from "../utils/api";
+    import EventBus from "../utils/EventBus";
     export default {
         name: "UserVoucherList",
         components: {UserVoucherControl, ProgressBar, Pagination, StatusBadge, UserVouchersTable},
@@ -75,6 +76,16 @@
             }
         },
         async mounted() {
+
+            EventBus.$on('VOUCHER_CREATED',  async (voucher) => {
+
+                //Paginating is used as to maintain table visibility
+                this.paginating = true
+                await this.getUserVouchers(url)
+
+                this.paginating = false
+            })
+
             const url = `${this.backendUrl}/api/users/${this.userId}/vouchers`;
             this.loading = true;
             await this.getUserVouchers(url);
