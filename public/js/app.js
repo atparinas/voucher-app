@@ -2167,6 +2167,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ui_ProgressBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ui/ProgressBar */ "./resources/js/components/ui/ProgressBar.vue");
 /* harmony import */ var _UserVouchersTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./UserVouchersTable */ "./resources/js/components/users/UserVouchersTable.vue");
 /* harmony import */ var _UserVoucherControl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./UserVoucherControl */ "./resources/js/components/users/UserVoucherControl.vue");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/api */ "./resources/js/components/utils/api.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2198,6 +2199,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 
 
 
@@ -52194,6 +52196,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.withCredentials = true;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -52795,6 +52798,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserVouchersTable_vue_vue_type_template_id_a752ce48_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/utils/api.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/utils/api.js ***!
+  \**********************************************/
+/*! exports provided: baseUrl, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "baseUrl", function() { return baseUrl; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var baseUrl = "http://homestead.test";
+
+var api = function api() {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+    baseURL: baseUrl,
+    withCredentials: true
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (api);
 
 /***/ }),
 

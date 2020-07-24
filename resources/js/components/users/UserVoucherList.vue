@@ -29,6 +29,7 @@
     import ProgressBar from "../ui/ProgressBar";
     import UserVouchersTable from  "./UserVouchersTable"
     import UserVoucherControl from "./UserVoucherControl";
+    import api from "../utils/api";
     export default {
         name: "UserVoucherList",
         components: {UserVoucherControl, ProgressBar, Pagination, StatusBadge, UserVouchersTable},
