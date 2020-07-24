@@ -73,23 +73,55 @@
                 await this.getUserVouchers(url)
 
                 this.paginating = false
-            }
-        },
-        async mounted() {
+            },
+            async refreshContent(page){
 
-            EventBus.$on('VOUCHER_CREATED',  async (voucher) => {
+
+                const url = `${this.backendUrl}/api/users/vouchers/?page=${page}`
 
                 //Paginating is used as to maintain table visibility
                 this.paginating = true
                 await this.getUserVouchers(url)
 
                 this.paginating = false
-            })
+
+            },
+
+        },
+        async mounted() {
 
             const url = `${this.backendUrl}/api/users/vouchers`;
             this.loading = true;
             await this.getUserVouchers(url);
             this.loading = false;
+
+
+            EventBus.$on('VOUCHER_CREATED',  (voucher) => {
+                if(this.pagination && this.pagination.currentPage){
+                    let page = this.pagination.currentPage;
+                    this.refreshContent(page);
+                }
+            })
+
+            EventBus.$on('VOUCHER_DELETED',  () => {
+                if(this.pagination && this.pagination.currentPage){
+                    let page = this.pagination.currentPage;
+
+                    if(this.pagination.count === 1){
+                        if(this.pagination.previousPageUrl !== null && this.pagination.nextPageUrl === null){
+                            page = this.pagination.currentPage - 1;
+                        }else if (this.pagination.previousPageUrl !== null && this.pagination.nextPageUrl !== null){
+                            page = this.pagination.currentPage;
+                        }else {
+                            page = 1;
+                        }
+                    }
+
+                    this.refreshContent(page);
+                }
+            })
+
+
         }
     }
 </script>

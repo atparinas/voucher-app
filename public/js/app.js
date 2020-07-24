@@ -2259,7 +2259,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.get(csrf);
 
               case 5:
-                url = "".concat(_this.backendUrl, "/api/users/").concat(_this.userId, "/vouchers");
+                url = "".concat(_this.backendUrl, "/api/users/vouchers");
                 _context.next = 8;
                 return axios.post(url);
 
@@ -2451,10 +2451,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee3);
       }))();
+    },
+    refreshContent: function refreshContent(page) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var url;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                url = "".concat(_this4.backendUrl, "/api/users/vouchers/?page=").concat(page); //Paginating is used as to maintain table visibility
+
+                _this4.paginating = true;
+                _context4.next = 4;
+                return _this4.getUserVouchers(url);
+
+              case 4:
+                _this4.paginating = false;
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     }
   },
   mounted: function mounted() {
-    var _this4 = this;
+    var _this5 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
       var url;
@@ -2462,41 +2488,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              _utils_EventBus__WEBPACK_IMPORTED_MODULE_7__["default"].$on('VOUCHER_CREATED', /*#__PURE__*/function () {
-                var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(voucher) {
-                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-                    while (1) {
-                      switch (_context4.prev = _context4.next) {
-                        case 0:
-                          //Paginating is used as to maintain table visibility
-                          _this4.paginating = true;
-                          _context4.next = 3;
-                          return _this4.getUserVouchers(url);
+              url = "".concat(_this5.backendUrl, "/api/users/vouchers");
+              _this5.loading = true;
+              _context5.next = 4;
+              return _this5.getUserVouchers(url);
 
-                        case 3:
-                          _this4.paginating = false;
+            case 4:
+              _this5.loading = false;
+              _utils_EventBus__WEBPACK_IMPORTED_MODULE_7__["default"].$on('VOUCHER_CREATED', function (voucher) {
+                if (_this5.pagination && _this5.pagination.currentPage) {
+                  var page = _this5.pagination.currentPage;
 
-                        case 4:
-                        case "end":
-                          return _context4.stop();
-                      }
+                  _this5.refreshContent(page);
+                }
+              });
+              _utils_EventBus__WEBPACK_IMPORTED_MODULE_7__["default"].$on('VOUCHER_DELETED', function () {
+                if (_this5.pagination && _this5.pagination.currentPage) {
+                  var page = _this5.pagination.currentPage;
+
+                  if (_this5.pagination.count === 1) {
+                    if (_this5.pagination.previousPageUrl !== null && _this5.pagination.nextPageUrl === null) {
+                      page = _this5.pagination.currentPage - 1;
+                    } else if (_this5.pagination.previousPageUrl !== null && _this5.pagination.nextPageUrl !== null) {
+                      page = _this5.pagination.currentPage;
+                    } else {
+                      page = 1;
                     }
-                  }, _callee4);
-                }));
+                  }
 
-                return function (_x) {
-                  return _ref.apply(this, arguments);
-                };
-              }());
-              url = "".concat(_this4.backendUrl, "/api/users/vouchers");
-              _this4.loading = true;
-              _context5.next = 5;
-              return _this4.getUserVouchers(url);
+                  _this5.refreshContent(page);
+                }
+              });
 
-            case 5:
-              _this4.loading = false;
-
-            case 6:
+            case 7:
             case "end":
               return _context5.stop();
           }
@@ -2567,7 +2591,24 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ui_StatusBadge__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ui/StatusBadge */ "./resources/js/components/ui/StatusBadge.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ui_StatusBadge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui/StatusBadge */ "./resources/js/components/ui/StatusBadge.vue");
+/* harmony import */ var _utils_EventBus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/EventBus */ "./resources/js/components/utils/EventBus.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2585,14 +2626,64 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "VoucherTableItem",
   components: {
-    StatusBadge: _ui_StatusBadge__WEBPACK_IMPORTED_MODULE_0__["default"]
+    StatusBadge: _ui_StatusBadge__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: ['voucher', 'count'],
+  data: function data() {
+    return {
+      deleting: false
+    };
+  },
   methods: {
-    deleteVoucher: function deleteVoucher(voucherId) {}
+    deleteVoucher: function deleteVoucher(voucherId) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var uri, csrf, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _this.deleting = true;
+                uri = "".concat(_this.backendUrl, "/api/users/vouchers/").concat(voucherId);
+                csrf = "".concat(_this.backendUrl, "/sanctum/csrf-cookie");
+                _context.next = 6;
+                return axios.get(csrf);
+
+              case 6:
+                _context.next = 8;
+                return axios["delete"](uri);
+
+              case 8:
+                response = _context.sent;
+                _utils_EventBus__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('VOUCHER_DELETED');
+                console.log(response);
+                _context.next = 16;
+                break;
+
+              case 13:
+                _context.prev = 13;
+                _context.t0 = _context["catch"](0);
+                console.log(_context.t0);
+
+              case 16:
+                _context.prev = 16;
+                _this.deleting = false;
+                return _context.finish(16);
+
+              case 19:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 13, 16, 19]]);
+      }))();
+    }
   }
 });
 
@@ -40302,7 +40393,17 @@ var render = function() {
             }
           }
         },
-        [_vm._v("Delete")]
+        [
+          _vm.deleting
+            ? _c("div", [
+                _c("span", {
+                  staticClass: "spinner-border spinner-border-sm",
+                  attrs: { role: "status", "aria-hidden": "true" }
+                }),
+                _vm._v("\n                Deleting ...\n            ")
+              ])
+            : _c("div", [_vm._v("\n                Delete\n            ")])
+        ]
       )
     ])
   ])

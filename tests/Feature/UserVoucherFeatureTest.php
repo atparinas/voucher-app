@@ -7,6 +7,7 @@ use App\Voucher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class UserVoucherFeatureTest extends TestCase
@@ -36,7 +37,7 @@ class UserVoucherFeatureTest extends TestCase
 
     }
 
-    public function testCanCreateVoucers()
+    public function testCanCreateVouchers()
     {
         $this->withoutExceptionHandling();
 
@@ -46,9 +47,23 @@ class UserVoucherFeatureTest extends TestCase
 
         $response = $this->post('api/users/vouchers/');
 
-        dd(json_decode($response->content()));
+        //dd(json_decode($response->content()));
 
         $response->assertStatus(201);
+    }
+
+    public function testCanDeleteVoucher()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+        Sanctum::actingAs($user, ['*']);
+
+        $voucher = factory(Voucher::class)->create(['user_id' => $user->id]);
+
+        $this->delete('api/users/vouchers/' . $voucher->id)
+            ->assertStatus(Response::HTTP_NO_CONTENT);
+
     }
 
 }

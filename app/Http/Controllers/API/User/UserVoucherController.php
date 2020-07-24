@@ -97,11 +97,11 @@ class UserVoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($userId, $voucherId)
+    public function destroy($voucherId)
     {
 
-        $user = Auth::user();
 
+        $user = Auth::user();
 
         $deleteResults = $this->voucherService->deleteVoucher($user, $voucherId);
 
@@ -110,7 +110,7 @@ class UserVoucherController extends Controller
             abort(Response::HTTP_INTERNAL_SERVER_ERROR, $deleteResults['error']);
         }
 
-        return response(Response::HTTP_NO_CONTENT);
+        return response([],Response::HTTP_NO_CONTENT);
 
     }
 

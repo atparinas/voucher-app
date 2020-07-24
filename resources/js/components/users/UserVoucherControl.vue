@@ -40,7 +40,7 @@
                     const csrf = `${this.backendUrl}/sanctum/csrf-cookie`;
                     await axios.get(csrf);
 
-                    const url = `${this.backendUrl}/api/users/${this.userId}/vouchers`
+                    const url = `${this.backendUrl}/api/users/vouchers`
                     const response = await axios.post(url);
 
                     EventBus.$emit('VOUCHER_CREATED', response.data);
@@ -53,7 +53,6 @@
                 finally {
                     this.creating = false
                 }
-
 
             }
 
