@@ -10,28 +10,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(voucher, index) in vouchers" :key="voucher.id">
-            <th scope="row">{{ firstItem + index }}</th>
-            <td>{{ voucher.code }}</td>
-            <td>
-                <StatusBadge :title="voucher.status" />
-            </td>
-            <td>
-                {{ voucher.createdAt }}
-            </td>
-            <td>
-                <button class="btn btn-sm btn-danger" >Delete</button>
-            </td>
-        </tr>
+        <VoucherTableItem v-for="(voucher, index) in vouchers" :key="voucher.id"
+                          :voucher="voucher" :count="firstItem + index" />
         </tbody>
     </table>
 </template>
 
 <script>
     import StatusBadge from "../ui/StatusBadge";
+    import VoucherTableItem from "./VoucherTableItem";
     export default {
         name: "UserVouchersTable",
-        components: {StatusBadge},
+        components: {VoucherTableItem, StatusBadge},
         props: {
             vouchers: {required: true, type: Array},
             firstItem: {type: [Number, null]}

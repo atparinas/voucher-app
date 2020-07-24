@@ -63,7 +63,7 @@
             },
             async pageClickedHandler(page){
                 this.paginating = true
-                const url = `${this.backendUrl}/api/users/${this.userId}/vouchers/?page=${page}`;
+                const url = `${this.backendUrl}/api/users/vouchers/?page=${page}`;
                 await this.getUserVouchers(url)
 
                 this.paginating = false
@@ -86,7 +86,7 @@
                 this.paginating = false
             })
 
-            const url = `${this.backendUrl}/api/users/${this.userId}/vouchers`;
+            const url = `${this.backendUrl}/api/users/vouchers`;
             this.loading = true;
             await this.getUserVouchers(url);
             this.loading = false;

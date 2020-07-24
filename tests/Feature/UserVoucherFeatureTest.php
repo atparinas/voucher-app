@@ -27,7 +27,7 @@ class UserVoucherFeatureTest extends TestCase
 
         Sanctum::actingAs($user, ['*']);
 
-        $response = $this->get('api/users/' . $user->id . '/vouchers/?page=1');
+        $response = $this->get('api/users/vouchers/?page=1');
 
         //dd(json_decode($response->content()));
 
@@ -44,9 +44,9 @@ class UserVoucherFeatureTest extends TestCase
 
         Sanctum::actingAs($user, ['*']);
 
-        $response = $this->post('api/users/' . $user->id . '/vouchers/');
+        $response = $this->post('api/users/vouchers/');
 
-        //dd(json_decode($response->content()));
+        dd(json_decode($response->content()));
 
         $response->assertStatus(201);
     }

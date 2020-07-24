@@ -9,6 +9,7 @@ use App\Services\Interfaces\VoucherService;
 use App\User;
 use App\Voucher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserVoucherController extends Controller
@@ -27,8 +28,10 @@ class UserVoucherController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request, $userId)
+    public function index(Request $request)
     {
+
+        $userId = Auth::user()->id;
 
         $vouchers = Voucher::where('user_id', $userId)
                          ->orderBy('created_at', 'desc')
@@ -46,9 +49,10 @@ class UserVoucherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request, $userId)
+    public function store(Request $request)
     {
-        $user = User::findOrfail($userId);
+        $user = Auth::user();
+
 
         if ($user->vouchers->count() >= 10){
             abort(Response::HTTP_BAD_REQUEST, "User already have 10 vouchers. Can't create more");
@@ -93,8 +97,21 @@ class UserVoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($userId, $voucherId)
     {
-        //
+
+        $user = Auth::user();
+
+
+        $deleteResults = $this->voucherService->deleteVoucher($user, $voucherId);
+
+        if(!$deleteResults['success']){
+
+            abort(Response::HTTP_INTERNAL_SERVER_ERROR, $deleteResults['error']);
+        }
+
+        return response(Response::HTTP_NO_CONTENT);
+
     }
+
 }
