@@ -29,3 +29,4 @@ Route::post('users/vouchers', 'API\User\UserVoucherController@store');
 Route::delete('users/vouchers/{voucher}', 'API\User\UserVoucherController@destroy');
 
 Route::get('users', 'API\User\UserController@index');
+Route::get('users/downloads', 'API\User\UserController@download');

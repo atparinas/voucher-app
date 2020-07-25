@@ -3,17 +3,21 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
+use App\Services\Interfaces\FileService;
 use App\Services\Interfaces\UserService;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
 
     protected $userService;
+    protected $fileService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, FileService $fileService)
     {
         $this->userService = $userService;
+        $this->fileService = $fileService;
     }
 
     /**
@@ -28,6 +32,23 @@ class UserController extends Controller
         return response()->json([
             'data' => $users
         ]);
+    }
+
+
+    public function download()
+    {
+        $users = $this->userService->getAllUsers();
+
+        $headers = ['id', 'vouchersCount'];
+
+        $file = $this->fileService->exportToCsv($headers, $users);
+
+        if($file == null){
+            abort(Response::HTTP_INTERNAL_SERVER_ERROR, "Error Creating File");
+        }
+
+        return response()->download($file);
+
     }
 
     /**
@@ -74,4 +95,6 @@ class UserController extends Controller
     {
         //
     }
+
+
 }

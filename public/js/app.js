@@ -2079,6 +2079,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2097,16 +2100,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var uri, response;
+        var url, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
                 _this.loading = true;
-                uri = "/api/users";
+                url = "/api/users";
                 _context.next = 5;
-                return axios.get(uri);
+                return axios.get(url);
 
               case 5:
                 response = _context.sent;
@@ -2131,6 +2134,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee, null, [[0, 9, 13, 16]]);
+      }))();
+    },
+    downloadCsv: function downloadCsv() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var url, response, fileUrl, link;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                url = "/api/users/downloads";
+                _context2.next = 4;
+                return axios.get(url);
+
+              case 4:
+                response = _context2.sent;
+                fileUrl = window.URL.createObjectURL(new Blob([response.data]));
+                link = document.createElement('a');
+                link.href = fileUrl;
+                link.setAttribute('download', 'file.csv');
+                document.body.appendChild(link);
+                link.click();
+                _context2.next = 16;
+                break;
+
+              case 13:
+                _context2.prev = 13;
+                _context2.t0 = _context2["catch"](0);
+                console.log(_context2.t0);
+
+              case 16:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 13]]);
       }))();
     }
   },
@@ -40176,8 +40215,15 @@ var render = function() {
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
             _vm.loading
-              ? _c("span", [_vm._v("Loading Users ...")])
-              : _c("span", [_vm._v("Users Table")])
+              ? _c("div", [_vm._v("Loading Users ...")])
+              : _c("div", [
+                  _vm._v(
+                    "\n                        Users Table\n                        "
+                  ),
+                  _c("button", { on: { click: _vm.downloadCsv } }, [
+                    _vm._v("Download CSV")
+                  ])
+                ])
           ]),
           _vm._v(" "),
           _c("div", { staticStyle: { height: "10px" } }, [

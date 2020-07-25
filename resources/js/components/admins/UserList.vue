@@ -5,8 +5,11 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <span v-if="loading">Loading Users ...</span>
-                        <span v-else>Users Table</span>
+                        <div v-if="loading">Loading Users ...</div>
+                        <div v-else>
+                            Users Table
+                            <button @click="downloadCsv">Download CSV</button>
+                        </div>
                     </div>
                     <div style="height: 10px">
                         <div class="progress" v-if="loading">
@@ -41,8 +44,8 @@
                 try{
                     this.loading = true;
 
-                    const uri = `/api/users`;
-                    const response = await axios.get(uri)
+                    const url = `/api/users`;
+                    const response = await axios.get(url)
 
                     this.users = response.data.data
 
@@ -51,6 +54,23 @@
                     console.log(e)
                 }finally {
                     this.loading = false
+                }
+            },
+
+            async downloadCsv(){
+                try {
+                    const url = `/api/users/downloads`;
+                    const response = await axios.get(url)
+
+                    const fileUrl = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = fileUrl;
+                    link.setAttribute('download', 'file.csv')
+                    document.body.appendChild(link);
+                    link.click();
+
+                }catch (e) {
+                    console.log(e)
                 }
             }
         },
