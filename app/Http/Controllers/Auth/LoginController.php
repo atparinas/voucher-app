@@ -55,6 +55,7 @@ class LoginController extends Controller
         ]);
 
         if(Auth::guard('admin')->attempt($loginData) ){
+            $request->session()->regenerate();
             return redirect()->intended('/admins');
         }
         return $this->sendFailedLoginResponse($request);
@@ -71,6 +72,7 @@ class LoginController extends Controller
         ]);
 
         if(Auth::guard('users')->attempt($loginData) ){
+            $request->session()->regenerate();
             return redirect()->intended('/users');
         }
 
@@ -81,6 +83,11 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        return redirect()->intended('/users');
     }
 
 }

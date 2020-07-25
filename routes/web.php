@@ -24,7 +24,7 @@ Route::get('/login/admins', 'Auth\LoginController@showAdminLogin')->name("show.a
 Route::post('/login/admins',  'Auth\LoginController@adminLogin')->name('admin.login');
 
 Route::get('login/users', 'Auth\LoginController@showUserLogin')->name('show.user.login');
-Route::post('login/users', 'Auth\LoginController@userLogin')->name('show.user.login');
+Route::post('login/users', 'Auth\LoginController@login')->name('user.login');
 
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('show.register');
 Route::post('register', 'Auth\RegisterController@register')->name('register');

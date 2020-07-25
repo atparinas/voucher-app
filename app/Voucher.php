@@ -10,7 +10,7 @@ class Voucher extends Model
     const USED = 'used';
 
     protected $fillable = [
-        'code', 'user_id'
+        'code', 'user_id', 'status'
     ];
 
     public function user()
