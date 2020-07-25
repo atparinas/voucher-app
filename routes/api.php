@@ -27,3 +27,5 @@ Route::get('test', 'API\TestController@index');
 Route::get('users/vouchers', 'API\User\UserVoucherController@index');
 Route::post('users/vouchers', 'API\User\UserVoucherController@store');
 Route::delete('users/vouchers/{voucher}', 'API\User\UserVoucherController@destroy');
+
+Route::get('users', 'API\User\UserController@index');
