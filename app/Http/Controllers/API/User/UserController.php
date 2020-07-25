@@ -3,18 +3,31 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
+use App\Services\Interfaces\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        $users = $this->userService->getAllUsers();
+
+        return response()->json([
+            'data' => $users
+        ]);
     }
 
     /**

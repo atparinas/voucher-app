@@ -15,9 +15,21 @@
 
 <script>
     import SideNav from "./SideNav";
+    import EventBus from "../utils/EventBus";
     export default {
         name: "AdminPage",
-        components: {SideNav}
+        components: {SideNav},
+        data(){
+            return {
+                message: '',
+                messageType: ''
+            }
+        },
+        mounted() {
+            EventBus.$on('USERS_LOAD_ERROR', () => {
+
+            })
+        }
     }
 </script>
 
