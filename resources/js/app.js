@@ -30,8 +30,9 @@ Vue.mixin({
 })
 
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('user-dashboard', require('./components/users/UserDashboard.vue').default);
+Vue.component('admin-dashboard', require('./components/admins/AdminDashboard.vue').default)
+Vue.component('admin-page', require('./components/admins/AdminPage.vue').default)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -45,6 +46,9 @@ Vue.filter('capitalize', function (value) {
     return value.charAt(0).toUpperCase() + value.slice(1)
 })
 
+import router from "./routes";
+
 const app = new Vue({
     el: '#app',
+    router
 });

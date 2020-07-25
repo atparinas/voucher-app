@@ -21,7 +21,7 @@
 </head>
 <body>
 <div id="app">
-    <h1>This is the Admin Layout</h1>
+    @include('admin.layouts._navbar')
 
     <div>
         @yield('admin.content')
