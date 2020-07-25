@@ -17,7 +17,7 @@
                     case "success":
                         return 'Congratulations!';
 
-                    case "error":
+                    case "danger":
                         return 'Oops Something went wrong';
 
                     case 'info':

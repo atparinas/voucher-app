@@ -55,7 +55,7 @@ class UserVoucherController extends Controller
 
 
         if ($user->vouchers->count() >= 10){
-            abort(Response::HTTP_BAD_REQUEST, "User already have 10 vouchers. Can't create more");
+            abort(Response::HTTP_BAD_REQUEST, "You already have 10 vouchers. Can't create more");
         }
 
         $voucher = $this->voucherService->createVoucher($user);

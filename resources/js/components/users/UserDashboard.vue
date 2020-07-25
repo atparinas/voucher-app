@@ -43,6 +43,14 @@
                     this.messageType = 'success'
                 }
             })
+
+            EventBus.$on('VOUCHER_CREATE_ERROR',  (message) => {
+                console.log('Event Triggered', message)
+                if(message){
+                    this.message = message;
+                    this.messageType = 'danger'
+                }
+            })
         }
     }
 </script>

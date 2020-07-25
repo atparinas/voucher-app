@@ -1971,7 +1971,7 @@ __webpack_require__.r(__webpack_exports__);
         case "success":
           return 'Congratulations!';
 
-        case "error":
+        case "danger":
           return 'Oops Something went wrong';
 
         case 'info':
@@ -2189,6 +2189,14 @@ __webpack_require__.r(__webpack_exports__);
         _this.messageType = 'success';
       }
     });
+    _utils_EventBus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('VOUCHER_CREATE_ERROR', function (message) {
+      console.log('Event Triggered', message);
+
+      if (message) {
+        _this.message = message;
+        _this.messageType = 'danger';
+      }
+    });
   }
 });
 
@@ -2247,7 +2255,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var csrf, url, response;
+        var csrf, url, response, errorMessage;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2267,25 +2275,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 response = _context.sent;
                 _utils_EventBus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('VOUCHER_CREATED', response.data);
                 console.log('VOUCHER_CREATED', response.data);
-                _context.next = 16;
+                _context.next = 19;
                 break;
 
               case 13:
                 _context.prev = 13;
                 _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
+                errorMessage = '';
 
-              case 16:
-                _context.prev = 16;
-                _this.creating = false;
-                return _context.finish(16);
+                if (_context.t0.response && _context.t0.response.data && _context.t0.response.data.message) {
+                  errorMessage = _context.t0.response.data.message;
+                } else {
+                  errorMessage = "Please try again";
+                }
+
+                _utils_EventBus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('VOUCHER_CREATE_ERROR', errorMessage);
+                console.log(_context.t0.response);
 
               case 19:
+                _context.prev = 19;
+                _this.creating = false;
+                return _context.finish(19);
+
+              case 22:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 13, 16, 19]]);
+        }, _callee, null, [[0, 13, 19, 22]]);
       }))();
     }
   }
@@ -40175,30 +40192,26 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm.totalVoucher < 10
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: { click: _vm.createVoucher }
-                  },
-                  [
-                    _vm.creating
-                      ? _c("div", [
-                          _c("span", {
-                            staticClass: "spinner-border spinner-border-sm",
-                            attrs: { role: "status", "aria-hidden": "true" }
-                          }),
-                          _vm._v("\n                Creating ...\n            ")
-                        ])
-                      : _c("div", [
-                          _vm._v(
-                            "\n                Create Voucher\n            "
-                          )
-                        ])
-                  ]
-                )
-              : _vm._e()
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                on: { click: _vm.createVoucher }
+              },
+              [
+                _vm.creating
+                  ? _c("div", [
+                      _c("span", {
+                        staticClass: "spinner-border spinner-border-sm",
+                        attrs: { role: "status", "aria-hidden": "true" }
+                      }),
+                      _vm._v("\n                Creating ...\n            ")
+                    ])
+                  : _c("div", [
+                      _vm._v("\n                Create Voucher\n            ")
+                    ])
+              ]
+            )
           ]
         )
   ])
