@@ -80,10 +80,10 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function guard()
-    {
-        return Auth::guard('users');
-    }
+//    protected function guard()
+//    {
+//        return Auth::guard();
+//    }
 
     protected function registered(Request $request, $user)
     {
