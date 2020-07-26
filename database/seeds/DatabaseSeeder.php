@@ -11,12 +11,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\User::class, 20)->create()
+        factory(\App\User::class, 30)->create()
             ->each(function ($user){
                $voucherCount = rand(1, 10);
 
-               factory(\App\Voucher::class, $voucherCount)->create(['user_id' => $user->id]);
+                print "Creating {$voucherCount} Voucher ... \n";
+                factory(\App\Voucher::class, $voucherCount)->create(['user_id' => $user->id]);
+                sleep(60);
 
+//               for ($i=0; $i <= $voucherCount; $i++){
+//                   print "Creating Voucher ... \n";
+//                   factory(\App\Voucher::class)->create(['user_id' => $user->id]);
+//                   sleep(60);
+//               }
             });
     }
 }
