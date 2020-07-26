@@ -13,6 +13,7 @@ class VoucherController extends Controller
 
     public function __construct(VoucherService $voucherService)
     {
+        $this->middleware('auth:admin');
         $this->voucherService = $voucherService;
     }
 
