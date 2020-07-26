@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\User;
 use App\Voucher;
+use Illuminate\Support\Facades\DB;
 
 class VoucherServiceImpl implements Interfaces\VoucherService
 {
@@ -54,5 +55,16 @@ class VoucherServiceImpl implements Interfaces\VoucherService
             ];
 
         }
+    }
+
+    public function getVoucherCountPerMinute()
+    {
+        return DB::select("select
+                from_unixtime(round(unix_timestamp(vouchers.created_at) /60) * 60) as createdDate,
+                count(id) as numberOfVouchers
+                from vouchers
+                group by
+                createdDate
+                order by createdDate asc");
     }
 }

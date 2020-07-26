@@ -30,3 +30,5 @@ Route::delete('users/vouchers/{voucher}', 'API\User\UserVoucherController@destro
 
 Route::get('users', 'API\User\UserController@index');
 Route::get('users/downloads', 'API\User\UserController@download');
+
+Route::get('vouchers/graphs', 'API\Voucher\VoucherController@graphs');
