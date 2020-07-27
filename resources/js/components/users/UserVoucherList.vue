@@ -31,6 +31,8 @@
     import UserVoucherControl from "./UserVoucherControl";
     import api from "../utils/api";
     import EventBus from "../utils/EventBus";
+
+
     export default {
         name: "UserVoucherList",
         components: {UserVoucherControl, ProgressBar, Pagination, StatusBadge, UserVouchersTable},
@@ -53,8 +55,6 @@
                     this.vouchers = response.data.data;
                     this.pagination = Object.assign({}, response.data.pagination)
                     this.totalVoucher = this.pagination.total
-
-                    console.log(response.data)
 
                 }catch (e) {
                     console.log(e)

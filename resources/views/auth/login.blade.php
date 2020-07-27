@@ -7,7 +7,7 @@
             <div class="d-flex flex-column col-md-8 mt-5" style="height: 100vh">
                 <div class="spacer" style="height: 150px" ></div>
                 <div class="card">
-                    <div class="card-header"> {{$url}} Login </div>
+                    <div class="card-header"> {{ ucfirst($url) }} Login </div>
                     <div class="card-body">
                         <form method="POST" action="{{ url("/login/$url") }}">
                             @csrf
