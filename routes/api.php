@@ -17,3 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('test', 'API\TestController@index');
+
+//Route::resource('users.vouchers', 'API\User\UserVoucherController', ['only' => ['index', 'store', 'destroy']]);
+
+
+Route::get('users/vouchers', 'API\User\UserVoucherController@index');
+Route::post('users/vouchers', 'API\User\UserVoucherController@store');
+Route::delete('users/vouchers/{voucher}', 'API\User\UserVoucherController@destroy');
+
+Route::get('users', 'API\User\UserController@index');
+Route::get('users/downloads', 'API\User\UserController@download');
+
+Route::get('vouchers/graphs', 'API\Voucher\VoucherController@graphs');
