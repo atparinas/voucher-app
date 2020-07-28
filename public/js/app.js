@@ -2892,21 +2892,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.vouchers = response.data.data;
                 _this.pagination = Object.assign({}, response.data.pagination);
                 _this.totalVoucher = _this.pagination.total;
-                console.log(response.data);
-                _context.next = 13;
+                _context.next = 12;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
                 console.log(_context.t0);
 
-              case 13:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[0, 9]]);
       }))();
     },
     pageClickedHandler: function pageClickedHandler(page) {
@@ -95151,8 +95150,7 @@ var baseUrl = "http://homestead.test";
 
 var api = function api() {
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-    baseURL: baseUrl,
-    withCredentials: true
+    baseURL: baseUrl
   });
 };
 
